@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="20" height="3" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="kindpng_3355506.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="20" height="3">
+  <data encoding="csv">
+519,520,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+543,544,546,547,615,616,617,618,620,621,623,624,687,688,690,691,693,694,695,696,
+567,568,570,571,639,640,641,642,644,645,647,648,711,712,714,715,717,718,719,720
+</data>
+ </layer>
+</map>

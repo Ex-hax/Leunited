@@ -1,0 +1,14 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "extensionsPath": "extensions",
+    "folders": [
+        ".",
+        "../tgs/gt/trinityroots",
+        "../tgs/gt/rootshalloween",
+        "../tgs/gt/summon_pet"
+    ],
+    "propertyTypes": [
+    ]
+}

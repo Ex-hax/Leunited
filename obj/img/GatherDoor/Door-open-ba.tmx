@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="4" height="2" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="../Stardewvalley/[Base]BaseChip_pipo.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="4" height="2">
+  <data encoding="csv">
+2684354999,0,0,536871351,
+2684354999,0,0,536871351
+</data>
+ </layer>
+</map>

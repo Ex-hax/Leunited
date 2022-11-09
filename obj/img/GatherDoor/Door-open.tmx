@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="4" height="2" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="../ruin/ruin-props.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="4" height="2">
+  <data encoding="csv">
+81,82,82,83,
+97,98,98,99
+</data>
+ </layer>
+</map>

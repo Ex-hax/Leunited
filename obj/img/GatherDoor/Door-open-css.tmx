@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="4" height="2" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" source="../schwarzeNacht/d8c5ral-fe16b808-4434-413d-a45a-6bb7df33a463.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="4" height="2">
+  <data encoding="csv">
+0,0,0,0,
+173,255,256,173
+</data>
+ </layer>
+ <layer id="2" name="Tile Layer 2" width="4" height="2">
+  <data encoding="csv">
+143,0,0,2147483791,
+159,0,0,2147483807
+</data>
+ </layer>
+</map>

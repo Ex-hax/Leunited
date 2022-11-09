@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="4" height="5" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="ghost01_15-1.tsx"/>
+ <tileset firstgid="13" source="ghost01_15-2.tsx"/>
+ <tileset firstgid="25" source="ghost01_15-4.tsx"/>
+ <tileset firstgid="37" source="ghost01_15-3.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="4" height="5">
+  <data encoding="csv">
+13,26,39,2,
+19,32,45,8,
+13,26,39,2,
+16,29,42,5,
+22,35,48,11
+</data>
+ </layer>
+</map>

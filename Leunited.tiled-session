@@ -1,0 +1,539 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map/main.tmx",
+    "expandedProjectPaths": [
+        "obj/sprite_sheet/dragon01/Animations",
+        "obj/img/schwarzeNacht",
+        "obj/img/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia",
+        "obj/img",
+        ".",
+        "map",
+        "C:/tgs/gt/summon_pet/chocobo01",
+        "obj/img/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia/TiledMap Editor",
+        "C:/tgs/gt/rootshalloween/font",
+        "obj/sprite_sheet/Test 64x64",
+        "obj/sprite_sheet/dragon01",
+        "obj"
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "C:/tgs/gt/obj/img/32x32_Halloween_Free/32x32_Halloween_Free.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/Free-Undead-Loot-Game-Icons/without_shadow/12.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/Free-Undead-Loot-Game-Icons/without_shadow/14.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/Free-Undead-Loot-Game-Icons/without_shadow/43.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/Free-Undead-Loot-Game-Icons/without_shadow/48.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/MV Icons Halloween/MV Icons Halloween 2 - ALL.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/free-rpg-halloween-icons/without background/10.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/halloween stuffs/tileset.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/killer/Killer.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/retrotexture-pack/TILE_1C.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/schwarzeNacht/d8c5ral-fe16b808-4434-413d-a45a-6bb7df33a463.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/obj/img/stardew-valley/[Base]BaseChip_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/font/readme.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1219,
+                "y": 1209
+            }
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/32x32_Halloween_Free/32x32_Halloween_Free.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/Free-Undead-Loot-Game-Icons/without_shadow/12.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/Free-Undead-Loot-Game-Icons/without_shadow/14.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/Free-Undead-Loot-Game-Icons/without_shadow/43.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/Free-Undead-Loot-Game-Icons/without_shadow/48.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/MV Icons Halloween/MV Icons Halloween 2 - ALL.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/free-rpg-halloween-icons/without background/10.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/halloween stuffs/tileset.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/killer/Killer.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/retrotexture-pack/TILE_1C.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/schwarzeNacht/d8c5ral-fe16b808-4434-413d-a45a-6bb7df33a463.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/rootshalloween/obj/img/stardew-valley/[Base]BaseChip_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/summon_pet/chocobo01/chocoba01.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/tgs/gt/summon_pet/chocobo01/chocobo01.tmx": {
+            "scale": 5.141875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64.08168226571048,
+                "y": 80.02917223775374
+            }
+        },
+        "C:/tgs/gt/trinityroots/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia/TiledMap Editor/Ancient Ruins-Tileset-wall-8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia/TiledMap Editor/Terrain - Ancient Ruins.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia/TiledMap Editor/Tileset-Animated Terrains-8 frames--.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/EPIC-props/epic-props.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/SSCAP/SSCAP-Outdoor.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/SSCAP/SSCAP-indoor.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/SSCAP/SSCAP-mountains1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/Stardewvalley/[A]Grass1-Grass2_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/Stardewvalley/[A]Water_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/Stardewvalley/[Base]BaseChip_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/bar/bar01.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/float island/float island.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/gather_source/gather_source.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/gather_source/gather_source_001.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/gather_source/ruin-prototype.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/gather_source/trinityroots-CI-tone.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/gather_source/trinityroots.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/gt-main-room/gt-room-main.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/killer/Killer.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/main-01.tmx": {
+            "scale": 0.17040625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1604.9880799559874,
+                "y": 1604.9880799559874
+            }
+        },
+        "C:/tgs/gt/trinityroots/pipoya/pipoya.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/pipoya/pipoya_enemy_dark.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/pipoya/pipoya_enemy_dark_purple.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/pipoya/pipoya_enemy_goblin.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/pipoya/pipoya_enemy_goblin_purple.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/pipoya/pipoya_enemy_mage.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/pipoya/pipoya_enemy_skull.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/portal-pack/portal-rz01 (64x64).tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/portal-pack/portal02.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/readme.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.5,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1032,
+                "y": 905
+            }
+        },
+        "C:/tgs/gt/trinityroots/retro-texture/retro-texture-pack.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/ruin/ruin-ground.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/ruin/ruin-props.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/ruin/ruin-stone-base.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/ruin/ruin-struc.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/ruin/ruin-wall.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/schwarzeNacht/d8c5q6o-3a7230e6-c46e-4986-9962-8fb1e10347a5.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/schwarzeNacht/d8c5ral-fe16b808-4434-413d-a45a-6bb7df33a463.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/slime/Slimes1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/table_chair/RPG Maker VX - Benches.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/table_chair/d7pwdx4-0bcfc8fa-8b1b-4194-b57b-6c2361b98732.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/table_chair/d7t1yi0-4a1999a8-d0e5-4005-828b-e58bbe0ec4c7.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/tgs/gt/trinityroots/trinityroots_wework_them.tmx": {
+            "expandedObjectLayers": [
+                9
+            ],
+            "scale": 0.75,
+            "selectedLayer": 10,
+            "viewCenter": {
+                "x": 1608,
+                "y": 1818
+            }
+        },
+        "map/main.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1725.7575757575758,
+                "y": 1398.4848484848487
+            }
+        },
+        "obj/img/32x32_Halloween_Free/32x32_Halloween_Free.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia/TiledMap Editor/Ancient Ruins-Tileset-wall-8.tsx": {
+            "scaleInDock": 0.75
+        },
+        "obj/img/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia/TiledMap Editor/Ancient Ruins-wall-8-rule.tmx": {
+            "scale": 0.642734375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 719.5818645921964,
+                "y": 638.6775252218306
+            }
+        },
+        "obj/img/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia/TiledMap Editor/Terrain - Ancient Ruins.tsx": {
+            "scaleInDock": 0.75
+        },
+        "obj/img/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia/TiledMap Editor/TiledMap Editor Example Demo- Ancient Ruins.tmx": {
+            "scale": 1.28546875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.11668895101496,
+                "y": 319.3387626109153
+            }
+        },
+        "obj/img/EPIC RPG World Pack - [FREE Demo]Ancient Ruins/EPIC RPG World Pack - [FREE Demo]Ancient Ruins - Copia/TiledMap Editor/Tileset-Animated Terrains-8 frames--.tsx": {
+            "scaleInDock": 1
+        },
+        "obj/img/EPIC-props/epic-props.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/GatherDoor/Door-close-ba.tmx": {
+            "scale": 8.11953125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64.10468584624266,
+                "y": 32.083132877898585
+            }
+        },
+        "obj/img/GatherDoor/Door-close-css.tmx": {
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 64,
+                "y": 32.125
+            }
+        },
+        "obj/img/GatherDoor/Door-close-dev.tmx": {
+            "scale": 7.0953124999999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64.05637524774279,
+                "y": 32.06342215371063
+            }
+        },
+        "obj/img/GatherDoor/Door-close-hl.tmx": {
+            "scale": 7.0953124999999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64.05637524774279,
+                "y": 32.06342215371063
+            }
+        },
+        "obj/img/GatherDoor/Door-close-ulh.tmx": {
+            "scale": 7.0953124999999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64.05637524774279,
+                "y": 32.06342215371063
+            }
+        },
+        "obj/img/GatherDoor/Door-open-ba.tmx": {
+            "scale": 8.11953125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64.10468584624266,
+                "y": 32.083132877898585
+            }
+        },
+        "obj/img/GatherDoor/Door-open-css.tmx": {
+            "scale": 8,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 63.8125,
+                "y": 31.5625
+            }
+        },
+        "obj/img/GatherDoor/Door-open-dev.tmx": {
+            "scale": 7.0953124999999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64.05637524774279,
+                "y": 32.06342215371063
+            }
+        },
+        "obj/img/GatherDoor/Door-open.tmx": {
+            "scale": 7.0953124999999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64.05637524774279,
+                "y": 32.06342215371063
+            }
+        },
+        "obj/img/GatherDoor/dev-door-close.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/GatherDoor/dev-door-open.tsx": {
+            "scaleInDock": 1
+        },
+        "obj/img/Stardewvalley/[A]Water_pipo.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/Stardewvalley/[Base]BaseChip_pipo.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/ruin/ruin-props.tsx": {
+            "scaleInDock": 1
+        },
+        "obj/img/ruin/ruin-stone-base.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/ruin/ruin-struc.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "obj/img/schwarzeNacht/d8c5q6o-3a7230e6-c46e-4986-9962-8fb1e10347a5.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/schwarzeNacht/d8c5ral-fe16b808-4434-413d-a45a-6bb7df33a463.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/schwarzeNacht/datt3ue-ebe0e50f-e391-449e-ae01-d915cbc96f72.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/table_chair/RPG Maker VX - Benches.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/table_chair/d7pwdx4-0bcfc8fa-8b1b-4194-b57b-6c2361b98732.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/table_chair/d7t1yi0-4a1999a8-d0e5-4005-828b-e58bbe0ec4c7.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/img/table_chair/db8g38d-f3539a3c-7156-4b07-8c97-bdc5883820cb.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/sprite_sheet/Test 64x64/sprite-sheet-with-lightnings-thunderbolt-strikes-set-fx-animation-realistic-set-purple-electric-impact-night-sparking-discharge-thunderstorm-isolated-transparent-background_107791-4362.png.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/sprite_sheet/Test 64x64/sprite-sheet-with-lightnings-thunderbolt-strikes-set-fx-animation-realistic-set-purple-electric-impact-night-sparking-discharge-thunderstorm-isolated-transparent-background_107791-4362.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/sprite_sheet/Test 64x64/test64x64.tsx": {
+            "scaleInDock": 0.125,
+            "scaleInEditor": 1
+        },
+        "obj/sprite_sheet/Test 64x64/thunder64x64.tmx": {
+            "scale": 3.3658203125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 129.8346196251378,
+                "y": 32.2358266117333
+            }
+        },
+        "obj/sprite_sheet/dragon01/Animations/Great Red Wyrm/GreatRedWyrmIdleSide.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/sprite_sheet/dragon01/Animations/Great Red Wyrm/Greate Red Wyrm.tmx": {
+            "scale": 3.3658203125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 128.05199326872864,
+                "y": 16.192189404050367
+            }
+        },
+        "obj/sprite_sheet/dragon01/dragon01 4x4 for go-kart-afk.tmx": {
+            "scale": 25.709374999999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 15.8891454965358,
+                "y": 16.005834447550747
+            }
+        },
+        "obj/sprite_sheet/dragon01/dragon01 4x4 for go-kart.tmx": {
+            "scale": 6.4273437499999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 63.40099671812327,
+                "y": 64.02333779020299
+            }
+        },
+        "obj/sprite_sheet/dragon01/drgon_pinterest01.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "obj/sprite_sheet/dragon01/rainbow-dragon-go-cart-4x4.tmx": {
+            "scale": 6.4273437499999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 64.02333779020299,
+                "y": 64.02333779020299
+            }
+        },
+        "obj/sprite_sheet/goku01/goku-saiya-blue.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "obj/sprite_sheet/kind/kind.tmx": {
+            "scale": 1.3463281249999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.12998317182155,
+                "y": 48.65084431033483
+            }
+        },
+        "obj/sprite_sheet/kind/kindpng_3355506.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Leunited/obj/sprite_sheet/dragon01/Animations/Great Red Wyrm",
+    "map.height": 4,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 32,
+    "map.tileWidth": 32,
+    "map.width": 4,
+    "openFiles": [
+        "map/main.tmx",
+        "obj/img/schwarzeNacht/d8c5q6o-3a7230e6-c46e-4986-9962-8fb1e10347a5.tsx"
+    ],
+    "project": "Leunited.tiled-project",
+    "recentFiles": [
+        "obj/img/schwarzeNacht/d8c5q6o-3a7230e6-c46e-4986-9962-8fb1e10347a5.tsx",
+        "map/main.tmx",
+        "obj/img/32x32_Halloween_Free/32x32_Halloween_Free.tsx",
+        "obj/img/Stardewvalley/[A]Water_pipo.tsx",
+        "obj/sprite_sheet/dragon01/dragon01 4x4 for go-kart.tmx",
+        "obj/sprite_sheet/dragon01/drgon_pinterest01.tsx",
+        "obj/sprite_sheet/dragon01/rainbow-dragon-go-cart-4x4.tmx",
+        "obj/sprite_sheet/dragon01/dragon01 4x4 for go-kart-afk.tmx",
+        "obj/sprite_sheet/goku01/goku-saiya-blue.tsx",
+        "obj/sprite_sheet/dragon01/Animations/Great Red Wyrm/Greate Red Wyrm.tmx",
+        "obj/sprite_sheet/dragon01/Animations/Great Red Wyrm/GreatRedWyrmIdleSide.tsx",
+        "obj/sprite_sheet/kind/kind.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}

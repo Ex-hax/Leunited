@@ -1,0 +1,34 @@
+# Changelog
+
+## v5 (5th July, 2022)
+
+- Added 30 new textures in a toxic waste lab theme: floors, ceiling lights, wall panels, support pillars and lights, doors, pipes, and slime.
+- Added 6 new tech lab door textures for vertically opening doors.
+- Added 6 new door trim textures.
+
+## v4 (25th June, 2022)
+
+- Added 4 computer panel textures, including one with a bullet hole, and one with the iconic BSOD!!!
+- Added 6 door textures, in three trim variants: metal, yellow and red; with and without damage.
+- Added versions of crates without pickup truck holes.
+- Recolored the dark crate versions and gave them a unique design.
+- Added crate tops for 64x64, 32x32, and 16x16.
+- Added simplified pipes texture.
+- Added 7 new tech walls, with no panel edges, ideal for making long corridors feel less repetitive.
+
+## v3 (23rd June, 2022)
+
+- Added 19 new stone tile ground textures, in three different variants: stone, mossy, and sandstone. For each variant there are two different layout patterns (square block and parquet), with various amounts of damage. The mossy version also has grass tuffs and water pools.
+- Added 4 new crate textures, in smaller sizes: 32x16 and 16x16.
+- Added 2 new rivets textures, for vertical strips of riveted metal, such as around doorways.
+- Updated some of the crate textures to add in more details.
+- Tweaked the lighting of most of the tech wall textures to soften them slightly.
+- Improved the overview file, with labels to make it easier to find textures.
+
+## v2 (21st June, 2022)
+
+- Added 10 new textures, consisting of 5 different crates, in two color variants, in three different sizes: 64x64, 64x32, and 32x32.
+
+## v1 (28th October, 2021)
+
+- An initial collection of 58 textures, mostly tech facility themed.
