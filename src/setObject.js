@@ -38,18 +38,27 @@ game.engine.sendAction({
 	mapAddObject: { 
 		mapId: 'blank',
 		object: {
-			_name: 'event-keeper',
-			_tags: ['event-keeper'],
-			x: 52,
-			y: 59,
-			normal: 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/uploads/UnQOIUo2ehN62TEU/N4lx1VcXRo7fmJSwIFY8eE',
-			highlighted: 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/uploads/UnQOIUo2ehN62TEU/l3aZRSeoj42KgJUTs69vwO',
+			_name: "custom-door",
+			_tags: ['custom-door'],
+			normal: "https://raw.githubusercontent.com/Ex-hax/Leunited/master/obj/img/GatherDoor/Door-close-hl.png",
+			highlighted: "https://raw.githubusercontent.com/Ex-hax/Leunited/master/obj/img/GatherDoor/Door-close-hl.png",
 			type: 5,
-			distThreshold: 2,
-			previewMessage: `To join an event, please find the event teleporter`,
-			width: 1,
-			height: 2,
-			id: 'event-keeper-01',
-		}
+			x: 35,
+			y: 49,
+			width: 2,
+			height: 1,
+			id: "custom-door-01",
+			previewMessage: "press x to open door",
+		},
+	}
+});
+
+game.engine.sendAction({
+	$case: 'setImpassable',
+	setImpassable: {
+		mapId: 'blank',
+		x:,
+		y:,
+		impassable: true;
 	}
 });
