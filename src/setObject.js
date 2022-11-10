@@ -57,8 +57,8 @@ game.engine.sendAction({
 	$case: 'setImpassable',
 	setImpassable: {
 		mapId: 'blank',
-		x: 34,
-		y: 49,
+		x: 57,
+		y: 44,
 		impassable: true,
 	}
 });

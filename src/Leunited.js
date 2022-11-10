@@ -182,6 +182,15 @@ setInterval(()=>{
 				backgroundImagePath: 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/map/main.png',
 			}
 		});
+		game.engine.sendAction({
+			$case: 'setImpassable',
+			setImpassable: {
+				mapId: 'blank',
+				x: 57,
+				y: 44,
+				impassable: true,
+			}
+		});
 	}
 	else{
 		game.engine.sendAction({
@@ -191,8 +200,27 @@ setInterval(()=>{
 				backgroundImagePath: 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/map/main-dark.png',
 			}
 		});
+		game.engine.sendAction({
+			$case: 'setImpassable',
+			setImpassable: {
+				mapId: 'blank',
+				x: 57,
+				y: 44,
+				impassable: false,
+			}
+		});
+		setTimeout(()=>{
+			game.engine.sendAction({
+				$case: 'setImpassable',
+				setImpassable: {
+					mapId: 'blank',
+					x: 57,
+					y: 44,
+					impassable: true,
+				}
+			});
+		},3000);
 	}
 },60000);
 
-/*Script controll*/
 /***************************************************************************/
