@@ -38,18 +38,18 @@ game.engine.sendAction({
 	mapAddObject: { 
 		mapId: 'blank',
 		object: {
-			_name: 'teleporter',
-			_tags: ['event-teleporter'],
-			x: 69,
-			y: 42,
-			normal: 'https://raw.githubusercontent.com/hmm-yess/Leunited/master/obj/img/portal-pack/portal-rz01.png',
-			highlighted: 'https://raw.githubusercontent.com/hmm-yess/Leunited/master/obj/img/portal-pack/portal-rz01.png',
+			_name: 'event-keeper',
+			_tags: ['event-keeper'],
+			x: 52,
+			y: 59,
+			normal: 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/uploads/UnQOIUo2ehN62TEU/N4lx1VcXRo7fmJSwIFY8eE',
+			highlighted: 'https://cdn.gather.town/storage.googleapis.com/gather-town.appspot.com/uploads/UnQOIUo2ehN62TEU/l3aZRSeoj42KgJUTs69vwO',
 			type: 5,
-			distThreshold: 1,
-			previewMessage: `Join event step in and confirm by press x`,
+			distThreshold: 2,
+			previewMessage: `To join an event, please find the event teleporter`,
 			width: 1,
-			height: 1,
-			id: 'teleporter-02',
+			height: 2,
+			id: 'event-keeper-01',
 		}
 	}
 });

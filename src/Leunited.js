@@ -127,31 +127,6 @@ game.subscribeToEvent("playerChats", (data, context) => {
 				});
 				game.teleport('blank',50,72,data.playerChats.senderId);
 				break;
-			case "/event":
-				if (context.player.affiliation != 'ally'){
-					game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: data.playerChats.senderId,
-								contents: `To join an event please register!`,
-								localPlayerIds: [],
-								mapId: 'blank',
-							}
-					});
-				}
-				else{
-					game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: data.playerChats.senderId,
-								contents: `Find the teleporter and then press x to join`,
-								localPlayerIds: [],
-								mapId: 'blank',
-							}
-					});
-					game.teleport('RdrF5O3qyQ91gFAdofHTv',50,50,data.playerChats.senderId)
-				}
-				break;
 			default:
 				game.engine.sendAction({
 					$case: "chat",
@@ -181,6 +156,9 @@ game.subscribeToEvent("playerInteracts", (data, context) => {
 			if(obj[obj_key[i]]._tags.includes('buff-teleporter')){
 				game.teleport('blank',53,95,context.playerId);
 			}
+			if(obj[obj_key[i]]._tags.includes('event-teleporter')){
+				game.teleport('RdrF5O3qyQ91gFAdofHTv',50,50,context.playerId)
+			}
 		}
 	}
 	//console.log(game.partialMaps.blank.objects[String(data.playerInteracts.encId)]._tags);
@@ -196,23 +174,25 @@ game.subscribeToEvent("playerInteracts", (data, context) => {
 });
 
 setInterval(()=>{
-	if (game.partialMaps.blank.backgroundImagePath == 'https://raw.githubusercontent.com/hmm-yess/Leunited/master/map/main-dark.png'){
+	if (game.partialMaps.blank.backgroundImagePath == 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/map/main-dark.png'){
 		game.engine.sendAction({
-				$case: "mapSetBackgroundImagePath",
-				mapSetBackgroundImagePath:{
-					mapId: 'blank',
-					backgroundImagePath: 'https://raw.githubusercontent.com/hmm-yess/Leunited/master/map/main.png',
-				}
-			});
+			$case: "mapSetBackgroundImagePath",
+			mapSetBackgroundImagePath:{
+				mapId: 'blank',
+				backgroundImagePath: 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/map/main.png',
+			}
+		});
 	}
 	else{
 		game.engine.sendAction({
-				$case: "mapSetBackgroundImagePath",
-				mapSetBackgroundImagePath:{
-					mapId: 'blank',
-					backgroundImagePath: 'https://raw.githubusercontent.com/hmm-yess/Leunited/master/map/main-dark.png',
-				}
-			});
+			$case: "mapSetBackgroundImagePath",
+			mapSetBackgroundImagePath:{
+				mapId: 'blank',
+				backgroundImagePath: 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/map/main-dark.png',
+			}
+		});
 	}
 },60000);
+
+/*Script controll*/
 /***************************************************************************/
