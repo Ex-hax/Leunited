@@ -219,8 +219,15 @@ setInterval(()=>{
 					impassable: true,
 				}
 			});
-		},3000);
+			game.engine.sendAction({
+				$case: "mapSetBackgroundImagePath",
+				mapSetBackgroundImagePath:{
+					mapId: 'blank',
+					backgroundImagePath: 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/map/main.png',
+				}
+			});
+		},7000);
 	}
-},60000);
+},300000);
 
 /***************************************************************************/
