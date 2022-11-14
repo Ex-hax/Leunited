@@ -11,12 +11,21 @@ game.subscribeToEvent("playerTriggersItem", (data, context) => {
 							{'x': t_pos_x-1, 'y': t_pos_y}, {'x': t_pos_x, 'y': t_pos_y}, {'x': t_pos_x+1, 'y': t_pos_y},
 							{'x': t_pos_x-1, 'y': t_pos_y+1}, {'x': t_pos_x, 'y': t_pos_y+1}, {'x': t_pos_x+1, 'y': t_pos_y+1},
 						];
-			if (t_pid == 'oQPy7UIe50eBXFX3n07VLfXqDHu1'){
+			if (killer_id.includes(t_pid)){
 				for (var i=0; i<all_pid_key.length; i++){
 					for (var u=0; u<t_pos.length; u++){
 						if(all_pid_key[i] != t_pid && all_pid[all_pid_key[i]].x == t_pos[u]['x'] && all_pid[all_pid_key[i]].y == t_pos[u]['y']){
 							const pid = all_pid_key[i];
 							game.teleport('RdrF5O3qyQ91gFAdofHTv',51,79,pid)
+							game.engine.sendAction({
+								$case: 'fxShakeCamera',
+								fxShakeCamera:{
+									intensity: 50,
+									durationMs: 3000,
+									mapId: 'RdrF5O3qyQ91gFAdofHTv',
+									targetUserId: pid
+								}
+							});
 						}
 					}
 				}
@@ -24,10 +33,6 @@ game.subscribeToEvent("playerTriggersItem", (data, context) => {
 		}
 	}
 });
-
-killer_id = ['oQPy7UIe50eBXFX3n07VLfXqDHu1']; // example as myself
-check_point = [{'x':55,'y':77},{'x':47,'y':68},{'x':35,'y':37},{'x':84,'y':27},{'x':85,'y':6}];
-fall_back = [{'x':55,'y':78},{'x':47,'y':67},{'x':35,'y':36},{'x':85,'y':28},{'x':85,'y':7}];
 
 game.subscribeToEvent("playerMoves", (data, context) => {
 	if(context.player.map == 'RdrF5O3qyQ91gFAdofHTv'){
