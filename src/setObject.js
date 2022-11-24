@@ -55,6 +55,27 @@ game.engine.sendAction({
 });
 
 game.engine.sendAction({
+	$case: "mapAddObject",
+	mapAddObject: { 
+		mapId: 'blank',
+		object: {
+			_name: 'keys',
+			_tags: [ 'keys', 'key_a' ],
+			normal: 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/obj/img/target/key.png',
+			highlighted: 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/obj/img/target/key.png',
+			type: 5,
+			x: 43,
+			y: 51,
+			width: 1,
+			height: 1,
+			distThreshold : 1,
+			id: "gen_a",
+			previewMessage: "Repair key by press x",
+		},
+	}
+});
+
+game.engine.sendAction({
 	$case: 'setImpassable',
 	setImpassable: {
 		mapId: 'blank',

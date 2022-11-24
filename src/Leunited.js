@@ -16,11 +16,11 @@ const check_point = [{'x':55,'y':77},{'x':47,'y':68},{'x':35,'y':37},{'x':84,'y'
 const fall_back = [{'x':55,'y':78},{'x':47,'y':67},{'x':35,'y':36},{'x':85,'y':28},{'x':85,'y':7}];
 
 var gens = [
-		{'gen_a':0, 'id':'gen_a'},
-		{'gen_b':0, 'id':'gen_b'},
-		{'gen_c':0, 'id':'gen_c'},
-		{'gen_d':0, 'id':'gen_d'},
-		{'gen_e':0, 'id':'gen_e'},
+		{'gen_a':0, 'id':'gen_a', 'is_trigger': false},
+		{'gen_b':0, 'id':'gen_b', 'is_trigger': false},
+		{'gen_c':0, 'id':'gen_c', 'is_trigger': false},
+		{'gen_d':0, 'id':'gen_d', 'is_trigger': false},
+		{'gen_e':0, 'id':'gen_e', 'is_trigger': false},
 	];
 
 var is_event_start = false;
@@ -110,7 +110,7 @@ game.subscribeToEvent("playerChats", (data, context) => {
 							}
 					});
 				}
-				else{
+				else {
 					game.engine.sendAction({
 						$case: "chat",
 							chat: { 
@@ -139,7 +139,7 @@ game.subscribeToEvent("playerChats", (data, context) => {
 							}
 					});
 				}
-				else{
+				else {
 					game.engine.sendAction({
 						$case: "chat",
 							chat: { 
@@ -211,7 +211,7 @@ game.subscribeToEvent("playerChats", (data, context) => {
 					}
 					is_event_start = true;
 				}
-				else{
+				else {
 					console.log('Event has been started.');
 					game.engine.sendAction({
 					$case: "chat",
@@ -228,11 +228,11 @@ game.subscribeToEvent("playerChats", (data, context) => {
 				killer_id = [];
 				players_join = [];
 				gens = [
-					{'gen_a':0, 'id':'gen_a'},
-					{'gen_b':0, 'id':'gen_b'},
-					{'gen_c':0, 'id':'gen_c'},
-					{'gen_d':0, 'id':'gen_d'},
-					{'gen_e':0, 'id':'gen_e'},
+					{'gen_a':0, 'id':'gen_a', 'is_trigger': false},
+					{'gen_b':0, 'id':'gen_b', 'is_trigger': false},
+					{'gen_c':0, 'id':'gen_c', 'is_trigger': false},
+					{'gen_d':0, 'id':'gen_d', 'is_trigger': false},
+					{'gen_e':0, 'id':'gen_e', 'is_trigger': false},
 				];
 				const all_pid_key_left = Object.keys(game.players);
 				for (var i=0;i<all_pid_key_left.length;i++){
@@ -262,91 +262,93 @@ game.subscribeToEvent("playerInteracts", (data, context) => {
 	var obj_key = Object.keys(obj);
 	for (var i = 0; i<obj_key.length;i++){
 		if(data.playerInteracts.objId == obj[obj_key[i]].id){
-			if(obj[obj_key[i]]._tags.includes('buff-speed')){
-				var p_info_speed = game.players[context.playerId]['description'];
-				p_info_speed = JSON.parse(p_info_speed);
-				if (p_info_speed['L$'] < 20){
-					game.engine.sendAction({
-					$case: "chat",
-						chat: { 
-							chatRecipient: context.playerId,
-							contents: `You need more ${20-p_info_speed['L$']} L$ to purchase this buff.`,
-							localPlayerIds: [],
-							mapId: 'blank',
-						}
-					});
+			console.log(obj[obj_key[i]]._tags);
+			if (obj[obj_key[i]]._tags !== undefined){
+				if(obj[obj_key[i]]._tags.includes('buff-speed')){
+					var p_info_speed = game.players[context.playerId]['description'];
+					p_info_speed = JSON.parse(p_info_speed);
+					if (p_info_speed['L$'] < 20){
+						game.engine.sendAction({
+						$case: "chat",
+							chat: { 
+								chatRecipient: context.playerId,
+								contents: `You need more ${20-p_info_speed['L$']} L$ to purchase this buff.`,
+								localPlayerIds: [],
+								mapId: 'blank',
+							}
+						});
+					}
+					else {
+						p_info_speed['L$'] -= 20;
+						game.setDescription(JSON.stringify(p_info_speed),context.playerId);
+						game.engine.sendAction({
+						$case: "chat",
+							chat: { 
+								chatRecipient: context.playerId,
+								contents: `Your remaining balance is ${p_info_speed['L$']} L$.`,
+								localPlayerIds: [],
+								mapId: 'blank',
+							}
+						});
+						console.log(obj[obj_key[i]]._tags);
+						game.setSpeedModifier(3,context.playerId);
+						setTimeout(()=>{
+							game.setSpeedModifier(1,context.playerId);
+						},30000);
+					}
+				}	
+				else if (obj[obj_key[i]]._tags.includes('buff-teleporter')){
+					var p_info_tele = game.players[context.playerId]['description'];
+					p_info_tele = JSON.parse(p_info_tele);
+					if (p_info_tele['L$'] < 50){
+						game.engine.sendAction({
+						$case: "chat",
+							chat: { 
+								chatRecipient: context.playerId,
+								contents: `You need more ${50-p_info_tele['L$']} L$ to purchase this buff.`,
+								localPlayerIds: [],
+								mapId: 'blank',
+							}
+						});
+					}
+					else {
+						p_info_tele['L$'] -= 50;
+						game.setDescription(JSON.stringify(p_info_tele),context.playerId);
+						game.engine.sendAction({
+						$case: "chat",
+							chat: { 
+								chatRecipient: context.playerId,
+								contents: `Your remaining balance is ${p_info_tele['L$']} L$.`,
+								localPlayerIds: [],
+								mapId: 'blank',
+							}
+						});
+						console.log(obj[obj_key[i]]._tags);
+						game.teleport('blank',53,95,context.playerId);
+					}
+					
 				}
-				else{
-					p_info_speed['L$'] -= 20;
-					game.setDescription(JSON.stringify(p_info_speed),context.playerId);
-					game.engine.sendAction({
-					$case: "chat",
-						chat: { 
-							chatRecipient: context.playerId,
-							contents: `Your remaining balance is ${p_info_speed['L$']} L$.`,
-							localPlayerIds: [],
-							mapId: 'blank',
-						}
-					});
-					console.log(obj[obj_key[i]]._tags);
-					game.setSpeedModifier(3,context.playerId);
-					setTimeout(()=>{
-						game.setSpeedModifier(1,context.playerId);
-					},30000);
+				else if (obj[obj_key[i]]._tags.includes('event-teleporter')){
+					if (is_event_start == false){
+						console.log(obj[obj_key[i]]._tags);
+						game.teleport('RdrF5O3qyQ91gFAdofHTv',50,50,context.playerId);
+					}
+					else {
+						game.engine.sendAction({
+						$case: "chat",
+							chat: { 
+								chatRecipient: context.playerId,
+								contents: `Event has been started.`,
+								localPlayerIds: [],
+								mapId: 'blank',
+							}
+						});
+						console.log(`Event has been started.`);
+					}
 				}
-				
-			}
-			else if(obj[obj_key[i]]._tags.includes('buff-teleporter')){
-				var p_info_tele = game.players[context.playerId]['description'];
-				p_info_tele = JSON.parse(p_info_tele);
-				if (p_info_tele['L$'] < 50){
-					game.engine.sendAction({
-					$case: "chat",
-						chat: { 
-							chatRecipient: context.playerId,
-							contents: `You need more ${50-p_info_tele['L$']} L$ to purchase this buff.`,
-							localPlayerIds: [],
-							mapId: 'blank',
-						}
-					});
+				else {
+					console.log('No _tags match.');
 				}
-				else{
-					p_info_tele['L$'] -= 50;
-					game.setDescription(JSON.stringify(p_info_tele),context.playerId);
-					game.engine.sendAction({
-					$case: "chat",
-						chat: { 
-							chatRecipient: context.playerId,
-							contents: `Your remaining balance is ${p_info_tele['L$']} L$.`,
-							localPlayerIds: [],
-							mapId: 'blank',
-						}
-					});
-					console.log(obj[obj_key[i]]._tags);
-					game.teleport('blank',53,95,context.playerId);
-				}
-				
-			}
-			else if(obj[obj_key[i]]._tags.includes('event-teleporter')){
-				if (is_event_start == false){
-					console.log(obj[obj_key[i]]._tags);
-					game.teleport('RdrF5O3qyQ91gFAdofHTv',50,50,context.playerId)
-				}
-				else{
-					game.engine.sendAction({
-					$case: "chat",
-						chat: { 
-							chatRecipient: context.playerId,
-							contents: `Event has been started.`,
-							localPlayerIds: [],
-							mapId: 'blank',
-						}
-					});
-					console.log(`Event has been started.`);
-				}
-			}
-			else{
-				console.log('No _tags match.');
 			}
 		}
 	}
@@ -381,7 +383,7 @@ setInterval(()=>{
 			}
 		});
 	}
-	else{
+	else {
 		game.engine.sendAction({
 			$case: "mapSetBackgroundImagePath",
 			mapSetBackgroundImagePath:{
