@@ -53,23 +53,23 @@ game.engine.sendAction({
 		},
 	}
 });
-
+// {'x':96, 'y':47}, {'x':26, 'y':67}, {'x':37, 'y':13}, {'x':59, 'y':68}, {'x':79, 'y':38},
 game.engine.sendAction({
 	$case: "mapAddObject",
 	mapAddObject: { 
-		mapId: 'blank',
+		mapId: 'RdrF5O3qyQ91gFAdofHTv',
 		object: {
 			_name: 'keys',
-			_tags: [ 'keys', 'key_a' ],
+			_tags: [ 'keys', 'key_e' ],
 			normal: 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/obj/img/target/key.png',
 			highlighted: 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/obj/img/target/key.png',
 			type: 5,
-			x: 43,
-			y: 51,
+			x: 79,
+			y: 38,
 			width: 1,
 			height: 1,
 			distThreshold : 1,
-			id: "gen_a",
+			id: "gen_e",
 			previewMessage: "Repair key by press x",
 		},
 	}
@@ -84,3 +84,7 @@ game.engine.sendAction({
 		impassable: true,
 	}
 });
+/* game.subscribeToEvent('playerSetsEmojiStatus', (data, context) => {
+	console.log(context.playerId);
+	console.log(data.playerSetsEmojiStatus.emojiStatus);
+}); */

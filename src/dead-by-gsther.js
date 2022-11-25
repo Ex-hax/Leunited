@@ -83,7 +83,7 @@ game.subscribeToEvent("playerTriggersItem", (data, context) => {
 							});
 							setTimeout(()=>{
 								game.setSpeedModifier(1,pid);
-							},3000);
+							},60000);
 						}
 					}
 				}
@@ -97,8 +97,43 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 		var sur_win_con = 0;
 		for (var i=0; i<gens.length; i++){
 			if (gens[i]['id'] == data.playerInteracts.objId && gens[i]['is_trigger'] == false){
-				gens[i][gens[i]['id']] += 1;
-				sur_win_con += gens[i][gens[i]['id']];
+				if (gens[i][gens[i]['id']] < 5){
+					gens[i][gens[i]['id']] += 1;
+					game.engine.sendAction({
+						$case: "chat",
+							chat: { 
+								chatRecipient: context.playerId,
+								contents: `Repairing progress: ${gens[i][gens[i]['id']]*20}%`,
+								localPlayerIds: [],
+								mapId: 'RdrF5O3qyQ91gFAdofHTv',
+							}
+					});
+					if (gens[i][gens[i]['id']] == 5){
+						game.engine.sendAction({
+							$case: "chat",
+								chat: { 
+									chatRecipient: context.playerId,
+									contents: `This key has already repaired`,
+									localPlayerIds: [],
+									mapId: 'RdrF5O3qyQ91gFAdofHTv',
+								}
+						});
+					}
+				}
+				else{
+					game.engine.sendAction({
+						$case: "chat",
+							chat: { 
+								chatRecipient: context.playerId,
+								contents: `This key has already repaired`,
+								localPlayerIds: [],
+								mapId: 'RdrF5O3qyQ91gFAdofHTv',
+							}
+					});
+				}
+				for (var w=0; w<gens.length; w++){
+					sur_win_con += gens[w][gens[w]['id']];
+				}
 				if (sur_win_con == 25){
 					killer_id = [];
 					players_join = [];

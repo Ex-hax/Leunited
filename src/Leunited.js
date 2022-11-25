@@ -183,33 +183,53 @@ game.subscribeToEvent("playerChats", (data, context) => {
 				break;
 			case "/start":
 				if (is_event_start == false){
-					const all_pid_key_join = Object.keys(game.players);
-					for (var i=0;i<all_pid_key_join.length;i++){
-						if (game.players[all_pid_key_join[i]]['map'] == 'RdrF5O3qyQ91gFAdofHTv'){
-							if (killer_id.length == 0 && !killer_id.includes(data.playerChats.senderId)){
-								killer_id.push(data.playerChats.senderId);
-								game.teleport('RdrF5O3qyQ91gFAdofHTv',82,9,data.playerChats.senderId);
-								game.setSpeedModifier(2,data.playerChats.senderId);
-								console.log(killer_id);
-								if (data.playerChats.senderId == all_pid_key_join[i]){
-									console.log('Already added.');
+					if (game.players[data.playerChats.senderId]['map'] == 'RdrF5O3qyQ91gFAdofHTv'){
+						const all_pid_key_join = Object.keys(game.players);
+						for (var i=0;i<all_pid_key_join.length;i++){
+							if (game.players[all_pid_key_join[i]]['map'] == 'RdrF5O3qyQ91gFAdofHTv'){
+								if (killer_id.length == 0 && !killer_id.includes(data.playerChats.senderId)){
+									killer_id.push(data.playerChats.senderId);
+									game.teleport('RdrF5O3qyQ91gFAdofHTv',82,9,data.playerChats.senderId);
+									game.setSpeedModifier(2,data.playerChats.senderId);
+									console.log(killer_id);
+									if (data.playerChats.senderId == all_pid_key_join[i]){
+										console.log('Already added.');
+									}
+									else{
+										players_join.push(all_pid_key_join[i]);
+									}
 								}
-								else{
-									players_join.push(all_pid_key_join[i]);
+								else {
+									if(killer_id.includes(all_pid_key_join[i]) == false){
+										players_join.push(all_pid_key_join[i]);
+										game.setSpeedModifier(1,all_pid_key_join[i]);
+										game.teleport('RdrF5O3qyQ91gFAdofHTv',50,50,all_pid_key_join[i]);
+										console.log(players_join);
+									}
+									
 								}
-							}
-							else {
-								if(killer_id.includes(all_pid_key_join[i]) == false){
-									players_join.push(all_pid_key_join[i]);
-									game.setSpeedModifier(1,all_pid_key_join[i]);
-									game.teleport('RdrF5O3qyQ91gFAdofHTv',50,50,all_pid_key_join[i]);
-									console.log(players_join);
-								}
-								
 							}
 						}
+						if (players_join.length == 0){
+							killer_id = [];
+							game.setSpeedModifier(1,data.playerChats.senderId);
+							game.teleport('RdrF5O3qyQ91gFAdofHTv',50,50,data.playerChats.senderId);
+							game.engine.sendAction({
+								$case: "chat",
+									chat: { 
+										chatRecipient: data.playerChats.senderId,
+										contents: `The game can't start due to 
+										no survivor. Please wait for another
+										or can leave by respawn.`,
+										localPlayerIds: [],
+										mapId: 'RdrF5O3qyQ91gFAdofHTv',
+									}
+							});
+						}
+						else{
+							is_event_start = true;
+						}
 					}
-					is_event_start = true;
 				}
 				else {
 					console.log('Event has been started.');
