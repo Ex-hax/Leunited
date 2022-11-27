@@ -44,11 +44,11 @@ game.subscribeToEvent("playerTriggersItem", (data, context) => {
 								killer_id = [];
 								players_join = [];
 								gens = [
-									{'gen_a':0, 'id':'gen_a', 'is_trigger': false},
-									{'gen_b':0, 'id':'gen_b', 'is_trigger': false},
-									{'gen_c':0, 'id':'gen_c', 'is_trigger': false},
-									{'gen_d':0, 'id':'gen_d', 'is_trigger': false},
-									{'gen_e':0, 'id':'gen_e', 'is_trigger': false},
+									{'gen_a':0, 'id':'gen_a', 'is_trigger': false, 'is_break': false},
+									{'gen_b':0, 'id':'gen_b', 'is_trigger': false, 'is_break': false},
+									{'gen_c':0, 'id':'gen_c', 'is_trigger': false, 'is_break': false},
+									{'gen_d':0, 'id':'gen_d', 'is_trigger': false, 'is_break': false},
+									{'gen_e':0, 'id':'gen_e', 'is_trigger': false, 'is_break': false},
 								];
 								const all_pid_key_dead = Object.keys(game.players);
 								for (var i=0;i<all_pid_key_dead.length;i++){
@@ -83,7 +83,7 @@ game.subscribeToEvent("playerTriggersItem", (data, context) => {
 							});
 							setTimeout(()=>{
 								game.setSpeedModifier(1,pid);
-							},60000);
+							},3000);
 						}
 					}
 				}
@@ -97,18 +97,21 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 		var sur_win_con = 0;
 		for (var i=0; i<gens.length; i++){
 			if (gens[i]['id'] == data.playerInteracts.objId && gens[i]['is_trigger'] == false){
-				if (gens[i][gens[i]['id']] < 5){
-					gens[i][gens[i]['id']] += 1;
+				if (gens[i][gens[i]['id']] < 100){
+					gens[i][gens[i]['id']] += 20;
+					if(gens[i][gens[i]['id']] > 100){
+						gens[i][gens[i]['id']] = 100;
+					}
 					game.engine.sendAction({
 						$case: "chat",
 							chat: { 
 								chatRecipient: context.playerId,
-								contents: `Repairing progress: ${gens[i][gens[i]['id']]*20}%`,
+								contents: `Repairing progress: ${gens[i][gens[i]['id']]}%`,
 								localPlayerIds: [],
 								mapId: 'RdrF5O3qyQ91gFAdofHTv',
 							}
 					});
-					if (gens[i][gens[i]['id']] == 5){
+					if (gens[i][gens[i]['id']] >= 100){
 						game.engine.sendAction({
 							$case: "chat",
 								chat: { 
@@ -134,15 +137,15 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 				for (var w=0; w<gens.length; w++){
 					sur_win_con += gens[w][gens[w]['id']];
 				}
-				if (sur_win_con == 25){
+				if (sur_win_con >= sur_win_percent * 100){
 					killer_id = [];
 					players_join = [];
 					gens = [
-						{'gen_a':0, 'id':'gen_a', 'is_trigger': false},
-						{'gen_b':0, 'id':'gen_b', 'is_trigger': false},
-						{'gen_c':0, 'id':'gen_c', 'is_trigger': false},
-						{'gen_d':0, 'id':'gen_d', 'is_trigger': false},
-						{'gen_e':0, 'id':'gen_e', 'is_trigger': false},
+						{'gen_a':0, 'id':'gen_a', 'is_trigger': false, 'is_break': false},
+						{'gen_b':0, 'id':'gen_b', 'is_trigger': false, 'is_break': false},
+						{'gen_c':0, 'id':'gen_c', 'is_trigger': false, 'is_break': false},
+						{'gen_d':0, 'id':'gen_d', 'is_trigger': false, 'is_break': false},
+						{'gen_e':0, 'id':'gen_e', 'is_trigger': false, 'is_break': false},
 					];
 					const all_pid_key_win = Object.keys(game.players);
 					for (var j=0;j<all_pid_key_win.length;j++){
@@ -167,7 +170,23 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 				const inx = i;
 				setTimeout(() => {
 					gens[inx]['is_trigger'] = false;
-				},60000);
+				},2000);
+				console.log(gens);
+			}
+		}
+	}
+	if (context.player.map == 'RdrF5O3qyQ91gFAdofHTv' && killer_id.includes(context.playerId) == true){
+		for (var i=0; i<gens.length; i++){
+			if (gens[i]['id'] == data.playerInteracts.objId && gens[i]['is_break'] == false && gens[i][gens[i]['id']] < 100){
+				gens[i][gens[i]['id']] -= 25;
+				if (gens[i][gens[i]['id']] < 0){
+					gens[i][gens[i]['id']] = 0;
+				}
+				gens[i]['is_break'] = true;
+				const inxx = i;
+				setTimeout(() => {
+					gens[inxx]['is_break'] = false;
+				},3000);
 				console.log(gens);
 			}
 		}

@@ -11,16 +11,17 @@ game.enter({isNpc:true},'pdZnTdb7VShWtOz6F2xdVAJ4nOs2')
 
 var killer_id = []; // example myself
 var players_join = [];
+var sur_win_percent = 0;
 
 const check_point = [{'x':55,'y':77},{'x':47,'y':68},{'x':35,'y':37},{'x':84,'y':27},{'x':85,'y':6}];
 const fall_back = [{'x':55,'y':78},{'x':47,'y':67},{'x':35,'y':36},{'x':85,'y':28},{'x':85,'y':7}];
 
 var gens = [
-		{'gen_a':0, 'id':'gen_a', 'is_trigger': false},
-		{'gen_b':0, 'id':'gen_b', 'is_trigger': false},
-		{'gen_c':0, 'id':'gen_c', 'is_trigger': false},
-		{'gen_d':0, 'id':'gen_d', 'is_trigger': false},
-		{'gen_e':0, 'id':'gen_e', 'is_trigger': false},
+		{'gen_a':0, 'id':'gen_a', 'is_trigger': false, 'is_break': false},
+		{'gen_b':0, 'id':'gen_b', 'is_trigger': false, 'is_break': false},
+		{'gen_c':0, 'id':'gen_c', 'is_trigger': false, 'is_break': false},
+		{'gen_d':0, 'id':'gen_d', 'is_trigger': false, 'is_break': false},
+		{'gen_e':0, 'id':'gen_e', 'is_trigger': false, 'is_break': false},
 	];
 
 var is_event_start = false;
@@ -228,6 +229,10 @@ game.subscribeToEvent("playerChats", (data, context) => {
 						}
 						else{
 							is_event_start = true;
+							sur_win_percent = players_join.length + killer_id.length;
+							if (sur_win_percent > 500){
+								sur_win_percent = 500;
+							}
 						}
 					}
 				}
@@ -248,11 +253,11 @@ game.subscribeToEvent("playerChats", (data, context) => {
 				killer_id = [];
 				players_join = [];
 				gens = [
-					{'gen_a':0, 'id':'gen_a', 'is_trigger': false},
-					{'gen_b':0, 'id':'gen_b', 'is_trigger': false},
-					{'gen_c':0, 'id':'gen_c', 'is_trigger': false},
-					{'gen_d':0, 'id':'gen_d', 'is_trigger': false},
-					{'gen_e':0, 'id':'gen_e', 'is_trigger': false},
+					{'gen_a':0, 'id':'gen_a', 'is_trigger': false, 'is_break': false},
+					{'gen_b':0, 'id':'gen_b', 'is_trigger': false, 'is_break': false},
+					{'gen_c':0, 'id':'gen_c', 'is_trigger': false, 'is_break': false},
+					{'gen_d':0, 'id':'gen_d', 'is_trigger': false, 'is_break': false},
+					{'gen_e':0, 'id':'gen_e', 'is_trigger': false, 'is_break': false},
 				];
 				const all_pid_key_left = Object.keys(game.players);
 				for (var i=0;i<all_pid_key_left.length;i++){
