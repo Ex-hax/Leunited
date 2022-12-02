@@ -84,6 +84,14 @@ game.engine.sendAction({
 		impassable: true,
 	}
 });
+
+game.engine.sendAction({
+	$case: 'ring',
+	ring: {
+		user: '5qo4a86VBFYebRXS2HfW68JEHVV2',
+	}
+});
+
 /* game.subscribeToEvent('playerSetsEmojiStatus', (data, context) => {
 	console.log(context.playerId);
 	console.log(data.playerSetsEmojiStatus.emojiStatus);

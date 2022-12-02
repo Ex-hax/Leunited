@@ -170,7 +170,7 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 				const inx = i;
 				setTimeout(() => {
 					gens[inx]['is_trigger'] = false;
-				},2000);
+				},60000);
 				console.log(gens);
 			}
 		}
@@ -186,7 +186,7 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 				const inxx = i;
 				setTimeout(() => {
 					gens[inxx]['is_break'] = false;
-				},3000);
+				},47000);
 				console.log(gens);
 			}
 		}

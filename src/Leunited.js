@@ -3,9 +3,19 @@ const { Game } = require("@gathertown/gather-game-client");
 const game = new Game('VJ01mwNnpyXsL76g\\Leunited', () => Promise.resolve({ apiKey: 'CqJ8NIBnx3VZlDIQ' }));
 global.WebSocket = require("isomorphic-ws");
 game.connect();
-game.subscribeToConnection((connected) => console.log("connected?", connected));
+game.subscribeToConnection((connected) => console.log("\nconnected?", connected));
 
-game.enter({isNpc:true},'pdZnTdb7VShWtOz6F2xdVAJ4nOs2')
+game.enter(
+		{
+			name: 'Guild Master',
+			textStatus: 'Type /help to see more details.',
+			map: 'blank',
+			x: 28,
+			y: 43,
+			isNpc: true
+		},
+		'pdZnTdb7VShWtOz6F2xdVAJ4nOs2'
+	);
 
 /* var declare for dead by gather event*/
 
@@ -29,7 +39,7 @@ var is_event_start = false;
 
 game.subscribeToEvent('playerJoins',(data,context) => {
 	if (game.players[context.playerId].isNpc != true){
-		if (game.players[context.playerId]['affiliation'] != '' && game.players[context.playerId]['description'] == ''){
+		if ((game.players[context.playerId]['affiliation'] != '' || game.players[context.playerId]['affiliation'] == '') && game.players[context.playerId]['description'] == ''){
 			var old_player_info = JSON.stringify({HP:100, MANA:100, L$:100});
 			game.setDescription(old_player_info,context.playerId);
 		}
@@ -37,7 +47,7 @@ game.subscribeToEvent('playerJoins',(data,context) => {
 		$case: "chat",
 			chat: { 
 				chatRecipient: context.playerId,
-				contents: `Hello this is badmin bot.
+				contents: `Hello this is Guild Master.
 				Type /help to see more details.`,
 				localPlayerIds: [],
 				mapId: 'blank',
@@ -80,7 +90,7 @@ game.subscribeToEvent("playerChats", (data, context) => {
 							chatRecipient: data.playerChats.senderId,
 							contents: `1. To be our guild member type /regis.
 							2. Type /leave for left guild.
-							3. Type /player_info to get player info.`,
+							3. Type /info to get player info.`,
 							localPlayerIds: [],
 							mapId: 'blank',
 						}
@@ -92,13 +102,6 @@ game.subscribeToEvent("playerChats", (data, context) => {
 					var new_player_info = JSON.stringify({HP:100, MANA:100, L$:100});
 					game.setDescription(new_player_info,data.playerChats.senderId);
 					game.notify(`${context?.player?.name ?? context.playerId} join Leunited!!`);
-					/* game.engine.sendAction({
-						$case: 'setDescription',
-						setDescription:{
-							description: '{"HP":100,"MANA":100,"LECOIN":100}',
-							targetId: context.playerId,
-						}
-					}); */
 					game.engine.sendAction({
 						$case: "chat",
 							chat: { 
@@ -123,7 +126,7 @@ game.subscribeToEvent("playerChats", (data, context) => {
 					});
 				}
 				break;
-			case "/player_info":
+			case "/info":
 				if (game.players[data.playerChats.senderId]['affiliation'] != ''){
 					var p_info_request = game.players[data.playerChats.senderId]['description'];
 					p_info_request = JSON.parse(p_info_request);
