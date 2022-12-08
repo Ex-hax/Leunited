@@ -44,11 +44,11 @@ game.subscribeToEvent("playerTriggersItem", (data, context) => {
 								killer_id = [];
 								players_join = [];
 								gens = [
-									{'gen_a':0, 'id':'gen_a', 'is_trigger': false, 'is_break': false},
-									{'gen_b':0, 'id':'gen_b', 'is_trigger': false, 'is_break': false},
-									{'gen_c':0, 'id':'gen_c', 'is_trigger': false, 'is_break': false},
-									{'gen_d':0, 'id':'gen_d', 'is_trigger': false, 'is_break': false},
-									{'gen_e':0, 'id':'gen_e', 'is_trigger': false, 'is_break': false},
+									{'id': 'gen_a', 'gen_a': 0, 'is_trigger': false, 'is_break': false},
+									{'id': 'gen_b', 'gen_b': 0, 'is_trigger': false, 'is_break': false},
+									{'id': 'gen_c', 'gen_c': 0, 'is_trigger': false, 'is_break': false},
+									{'id': 'gen_d', 'gen_d': 0, 'is_trigger': false, 'is_break': false},
+									{'id': 'gen_e', 'gen_e': 0, 'is_trigger': false, 'is_break': false},
 								];
 								const all_pid_key_dead = Object.keys(game.players);
 								for (var i=0;i<all_pid_key_dead.length;i++){
@@ -141,11 +141,11 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 					killer_id = [];
 					players_join = [];
 					gens = [
-						{'gen_a':0, 'id':'gen_a', 'is_trigger': false, 'is_break': false},
-						{'gen_b':0, 'id':'gen_b', 'is_trigger': false, 'is_break': false},
-						{'gen_c':0, 'id':'gen_c', 'is_trigger': false, 'is_break': false},
-						{'gen_d':0, 'id':'gen_d', 'is_trigger': false, 'is_break': false},
-						{'gen_e':0, 'id':'gen_e', 'is_trigger': false, 'is_break': false},
+						{'id': 'gen_a', 'gen_a': 0, 'is_trigger': false, 'is_break': false},
+						{'id': 'gen_b', 'gen_b': 0, 'is_trigger': false, 'is_break': false},
+						{'id': 'gen_c', 'gen_c': 0, 'is_trigger': false, 'is_break': false},
+						{'id': 'gen_d', 'gen_d': 0, 'is_trigger': false, 'is_break': false},
+						{'id': 'gen_e', 'gen_e': 0, 'is_trigger': false, 'is_break': false},
 					];
 					const all_pid_key_win = Object.keys(game.players);
 					for (var j=0;j<all_pid_key_win.length;j++){
