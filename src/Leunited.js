@@ -200,6 +200,8 @@ game.subscribeToEvent("playerChats", (data, context) => {
 										}
 										else{
 											players_join.push(all_pid_key_join[i]);
+											game.setSpeedModifier(1,all_pid_key_join[i]);
+											game.teleport(map_dbg,50,50,all_pid_key_join[i]);
 										}
 									}
 									else {
