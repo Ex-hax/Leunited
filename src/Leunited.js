@@ -1,4 +1,4 @@
-const {space_id, map_blank, map_dbg, gatherTown_token, gatherTown_botId, gatherTownBackgroundImagePathNormalTheme, gatherTownBackgroundImagePathDarkTheme} = require('./config.js');
+const {space_id, map_blank, map_dbg, gatherTown_token, gatherTown_botId, gatherEventGuardNormal, gatherEventGuardHighLight} = require('./config.js');
 const {send_line_notify} = require('./lineNotify.js');
 const { Game } = require("@gathertown/gather-game-client");
 const game = new Game(space_id, () => Promise.resolve({ apiKey: gatherTown_token }));
@@ -16,8 +16,10 @@ game.enter(
 		},
 		gatherTown_botId
 	);
-var GatherTownBackgroundImagePathNormalTheme = gatherTownBackgroundImagePathNormalTheme;
-var GatherTownBackgroundImagePathDarkTheme = gatherTownBackgroundImagePathDarkTheme;
+/* for blank*/
+var GatherEventGuardNormal = gatherEventGuardNormal;
+var GatherEventGuardHighLight = gatherEventGuardHighLight;
+
 	
 /* var declare for dead by gather event*/
 var killer_id = []; // example myself
@@ -38,18 +40,27 @@ var gens = [
 var is_event_start = false;
 /**/
 
-game.subscribeToEvent('playerJoins',(data,context) => {
-	if (context.playerId != gatherTown_botId){
-		game.engine.sendAction({
+/*action chat*/
+const player_chat = (chatRecipient,chatContents,chatMapId) => {
+	game.engine.sendAction({
 		$case: "chat",
 			chat: { 
-				chatRecipient: context.playerId,
-				contents: `Hello this is Guild Master.
-				Type /help to see more details.`,
+				chatRecipient: chatRecipient,
+				contents: chatContents,
 				localPlayerIds: [],
-				mapId: map_blank,
+				mapId: chatMapId,
 			}
-		});
+	});	
+}
+
+game.subscribeToEvent('playerJoins',(data,context) => {
+	if (context.playerId != gatherTown_botId){
+		player_chat(
+			context.playerId,
+			`Hello this is Guild Master.
+			Type /help to see more details.`,
+			map_blank
+		);
 	}
 });
 
@@ -232,7 +243,7 @@ game.subscribeToEvent("playerChats", (data, context) => {
 							}
 							else{
 								is_event_start = true;
-								sur_win_percent = players_join.length + killer_id.length;
+								sur_win_percent = (players_join.length + killer_id.length) * 100;
 								if (sur_win_percent > 500){
 									sur_win_percent = 500;
 								}
@@ -352,7 +363,7 @@ game.subscribeToEvent("playerInteracts", (data, context) => {
 								mapId: map_blank,
 							}
 						});
-						game.teleport(map_blank,53,95,context.playerId);
+						game.teleport(map_blank,49,89,context.playerId);
 					}
 					
 				}
@@ -391,12 +402,26 @@ game.subscribeToEvent("playerInteracts", (data, context) => {
 });
 
 setInterval(()=>{
-	if (game.partialMaps.blank.backgroundImagePath == GatherTownBackgroundImagePathDarkTheme){
+	if (Object.keys(game.partialMaps.blank.collisions['44']).includes('57') == false){
+		/*add object door etc.*/
 		game.engine.sendAction({
-			$case: "mapSetBackgroundImagePath",
-			mapSetBackgroundImagePath:{
+			$case: "mapAddObject",
+			mapAddObject: { 
 				mapId: map_blank,
-				backgroundImagePath: GatherTownBackgroundImagePathNormalTheme,
+				object: {
+					_name: 'event-guard',
+					_tags: [ 'guard-event', 'dbg-event' ],
+					normal: GatherEventGuardNormal,
+					highlighted: GatherEventGuardHighLight,
+					type: 0,
+					x: 57,
+					y: 44,
+					width: 1,
+					height: 1,
+					distThreshold : 1,
+					id: "event-guard-01",
+					previewMessage: "Not this time!!!",
+				},
 			}
 		});
 		game.engine.sendAction({
@@ -410,11 +435,12 @@ setInterval(()=>{
 		});
 	}
 	else {
+		/*remove set obj*/
 		game.engine.sendAction({
-			$case: "mapSetBackgroundImagePath",
-			mapSetBackgroundImagePath:{
+			$case: "mapDeleteObjectById",
+			mapDeleteObjectById: { 
+				id: 'event-guard-01',
 				mapId: map_blank,
-				backgroundImagePath: GatherTownBackgroundImagePathDarkTheme,
 			}
 		});
 		game.engine.sendAction({
@@ -436,16 +462,30 @@ setInterval(()=>{
 					impassable: true,
 				}
 			});
+			/*add object door etc.*/
 			game.engine.sendAction({
-				$case: "mapSetBackgroundImagePath",
-				mapSetBackgroundImagePath:{
+				$case: "mapAddObject",
+				mapAddObject: { 
 					mapId: map_blank,
-					backgroundImagePath: GatherTownBackgroundImagePathNormalTheme,
+					object: {
+						_name: 'event-guard',
+						_tags: [ 'guard-event', 'dbg-event' ],
+						normal: GatherEventGuardNormal,
+						highlighted: GatherEventGuardHighLight,
+						type: 0,
+						x: 57,
+						y: 44,
+						width: 1,
+						height: 1,
+						distThreshold : 1,
+						id: "event-guard-01",
+						previewMessage: "Not this time!!!",
+					},
 				}
 			});
 		},7000);
 	}
-},360000);
+},10000);
 
 /***************************************************************************/
 game.subscribeToEvent("playerTriggersItem", (data, context) => {
@@ -587,7 +627,7 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 				for (var w=0; w<gens.length; w++){
 					sur_win_con += gens[w][gens[w]['id']];
 				}
-				if (sur_win_con >= sur_win_percent * 100){
+				if (sur_win_con >= sur_win_percent){
 					killer_id = [];
 					players_join = [];
 					gens = [

@@ -53,6 +53,35 @@ game.engine.sendAction({
 		},
 	}
 });
+
+game.engine.sendAction({
+	$case: "mapAddObject",
+	mapAddObject: { 
+		mapId: 'blank',
+		object: {
+			_name: 'event-guard',
+			_tags: [ 'guard-event', 'dbg-event' ],
+			normal: '',
+			highlighted: '',
+			type: 0,
+			x: 57,
+			y: 44,
+			width: 1,
+			height: 1,
+			distThreshold : 1,
+			id: "event-guard-01",
+			previewMessage: "Not this time!!!",
+		},
+	}
+});
+
+game.engine.sendAction({
+	$case: "mapDeleteObjectById",
+		mapDeleteObjectById: { 
+			id: 'event-guard-01',
+			mapId: 'blank',
+		}
+});
 // {'x':96, 'y':47}, {'x':26, 'y':67}, {'x':37, 'y':13}, {'x':59, 'y':68}, {'x':79, 'y':38},
 game.engine.sendAction({
 	$case: "mapAddObject",
