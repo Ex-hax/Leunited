@@ -1,10 +1,18 @@
-const {space_id, map_blank, map_dbg, gatherTown_token, gatherTown_botId, gatherEventGuardNormal, gatherEventGuardHighLight} = require('./config.js');
-const {send_line_notify} = require('./lineNotify.js');
+const {webhook_api, space_id, map_blank, map_dbg, gatherTown_token, gatherTown_botId, gatherEventGuardNormal, gatherEventGuardHighLight} = require('./config.js');
+const request = require('request');
 const { Game } = require("@gathertown/gather-game-client");
 const game = new Game(space_id, () => Promise.resolve({ apiKey: gatherTown_token }));
 global.WebSocket = require("isomorphic-ws");
 game.connect();
-game.subscribeToConnection((connected) => console.log("\nconnected?", connected));
+game.subscribeToConnection((connected) => console.log("\nConnected to GS?", connected));
+var socket = require('socket.io-client')(webhook_api,{reconnection: true});
+socket.on('connect', () => {
+	console.log('Connected to SIO?', true);
+});
+socket.on('disconnect', () => {
+	console.log('Connected to SIO?', false);
+});
+
 game.enter(
 		{
 			name: 'Guild Master',
@@ -16,11 +24,155 @@ game.enter(
 		},
 		gatherTown_botId
 	);
-/* for blank*/
+	
+/*action chat*/
+const player_chat = (chatRecipient,chatContents,chatMapId) => {
+	game.engine.sendAction({
+		$case: "chat",
+			chat: { 
+				chatRecipient: chatRecipient,
+				contents: chatContents,
+				localPlayerIds: [],
+				mapId: chatMapId,
+			}
+	});	
+}
+
+const cre_upd_users = (playerID,playerName) => {
+	request(
+		{
+			method:'get',
+			url: `${webhook_api}/api/${playerID}/${playerName}`,
+		},(error, response, body)=>{
+		//console.log(error);
+		//console.log(response);
+		console.log(body);
+		if (response.statusCode === 200){
+			player_chat(
+				playerID,
+				`Successful register!
+				Welcome to our guild.
+				HP: 100 MANA: 100 L$: 100`,
+				map_blank
+			)
+		}
+	});
+};
+
+const send_chat = (sender_gather_name,receipt_line_id,message_text) => {
+	return new Promise((resolve, reject) => {
+		request(
+			{
+				method:'post',
+				url: `${webhook_api}/api/sendchat`,
+				headers: {'content-type' : 'application/json'},
+				body: JSON.stringify({
+					'sender_gather_name': sender_gather_name,
+					'receipt_line_id': receipt_line_id,
+					'message_text': message_text,
+				})
+			},(error, response, body)=>{
+			//console.log(error);
+			//console.log(response);
+			//console.log(body);
+			resolve(body);				
+		});
+	})
+}
+
+const get_list = () => {
+	return new Promise((resolve, reject) => {
+		request(
+			{
+				method:'get',
+				url: `${webhook_api}/api/getlist`,
+			},(error, response, body)=>{
+			//console.log(error);
+			//console.log(response);
+			//console.log(body);
+			resolve(body);				
+		});
+	});
+};
+
+const send_chat_request = async(case_message_player_chat_id,sender_gather_id,message_text) => {
+	var sender_id = [];
+	var json_body = JSON.parse(await get_list());
+	for ( var i=0; i<json_body['L2G'].length;i++){
+		sender_id.push(`${i+1}`);
+	}
+	// check is registor LineOA
+	if (sender_id.includes(case_message_player_chat_id)){
+		var line_sender_id = json_body['L2G'][parseInt(case_message_player_chat_id)-1][case_message_player_chat_id]['line_id']
+	}
+	else{
+		var line_sender_id = '';
+	}
+	if (case_message_player_chat_id != '' && sender_id.includes(case_message_player_chat_id)){
+			if(line_sender_id != ''){
+				await send_chat(
+					game.players[sender_gather_id].name,
+					case_message_player_chat_id,
+					message_text.replace(`/@${case_message_player_chat_id}`,'')
+				)
+			}
+			else{
+				player_chat(
+					sender_gather_id,
+					`You can\'t send message to non-registor LineOA player!!!`,
+					map_blank
+				);
+			}
+		}
+	else{
+		player_chat(
+			sender_gather_id,
+			'Please fill the correct player\' s id!!!',
+			map_blank
+		);
+	}
+}
+
+const get_list_request = async(receipt_gather_id) => {
+	var current_data_list = JSON.parse(await get_list());
+	if (current_data_list['L2G'].length != 0){
+		var send_data = 'ID, Name,\t\tGatherTownID\n'
+			for (var i = 0; i<current_data_list['L2G'].length; i++){
+				send_data += `${i+1}, ${current_data_list['L2G'][i][i+1]['standard_name']}\n`
+		}
+		player_chat(
+			receipt_gather_id,
+			send_data,
+			map_blank
+		);
+	}
+	else{
+		player_chat(
+			receipt_gather_id,
+			'Player\'s data not available for now.',
+			map_blank
+		);
+	}
+}
+// sender gather_id receive from flask server
+socket.on('message', (data) => {
+	var new_data = JSON.parse(data);
+	if (new_data['case'] == '/message'){
+		player_chat(
+			new_data['receipt_gather_id'],
+			`
+			#############
+			${new_data['sender_line_display_name']} =>
+			${new_data['message_text']}
+			#############`,
+			map_blank
+		);
+	}
+});
+
 var GatherEventGuardNormal = gatherEventGuardNormal;
 var GatherEventGuardHighLight = gatherEventGuardHighLight;
 
-	
 /* var declare for dead by gather event*/
 var killer_id = []; // example myself
 var players_join = [];
@@ -39,19 +191,6 @@ var gens = [
 
 var is_event_start = false;
 /**/
-
-/*action chat*/
-const player_chat = (chatRecipient,chatContents,chatMapId) => {
-	game.engine.sendAction({
-		$case: "chat",
-			chat: { 
-				chatRecipient: chatRecipient,
-				contents: chatContents,
-				localPlayerIds: [],
-				mapId: chatMapId,
-			}
-	});	
-}
 
 game.subscribeToEvent('playerJoins',(data,context) => {
 	if (context.playerId != gatherTown_botId){
@@ -72,15 +211,7 @@ game.subscribeToEvent("playerMoves", (data, context) => {
 		if (data.playerMoves.x == res_pos[i]['x'] && data.playerMoves.y == res_pos[i]['y']){
 			if (player_affiliation != 'ally'){
 				game.teleport(map_blank,50,72,pid);
-				game.engine.sendAction({
-					$case: "chat",
-						chat: { 
-							chatRecipient: context.playerId,
-							contents: 'Look like you are not our ally?',
-							localPlayerIds: [],
-							mapId: map_blank,
-						}
-				});
+				player_chat(context.playerId,'Look like you are not our ally?',map_blank);
 				break;
 			}
 		}	
@@ -90,21 +221,32 @@ game.subscribeToEvent("playerMoves", (data, context) => {
 game.subscribeToEvent("playerChats", (data, context) => {
 	if (context.playerId != gatherTown_botId){
 		const message = data.playerChats;
+		const case_message = message.contents.toLowerCase().split(' ',1);
+		const case_message_player_chat_id = case_message[0].replace('/@','');
 		if (message.messageType === "DM") {
-			switch (message.contents.toLowerCase()) {
+			switch (case_message[0]) {
 				case "/help":
-					game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: data.playerChats.senderId,
-								contents: `1. To be our guild member type /regis.
-								2. Type /leave for left guild.
-								3. Type /info to get player info.
-								4. Type /check-in to provide check-in date and time (WIP)`,
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-					});
+					player_chat(
+						data.playerChats.senderId,
+						`1. To be our guild member type /regis.
+						2. Type /leave for left guild.
+						3. Type /info to get player info.
+						4. New Feature GatherTown To LineOA
+						4.1 If you are new in this room you
+						do follow this instruction by
+						I. Type /regis and then 
+						/info COPY your gather ID
+						II. Add freind @624zuzhu
+						III. In LineOA type
+						/regis <your gather id>
+						IV Type /getlist in both to
+						see the id that you need to send
+						message to /@<id> <your message>
+						4.2 For old member type /leave
+						and then follow 4.1 topic.
+						`,
+						map_blank
+					);
 					break;
 				case "/regis":
 					if (context.player.affiliation != 'ally'){
@@ -112,87 +254,55 @@ game.subscribeToEvent("playerChats", (data, context) => {
 						var new_player_info = JSON.stringify({HP:100, MANA:100, L$:100});
 						game.setDescription(new_player_info,data.playerChats.senderId);
 						game.notify(`${context?.player?.name ?? context.playerId} join Leunited!!`);
-						game.engine.sendAction({
-							$case: "chat",
-								chat: { 
-									chatRecipient: data.playerChats.senderId,
-									contents: `Successful register!
-									Welcome to our guild.
-									HP: 100 MANA: 100 L$: 100`,
-									localPlayerIds: [],
-									mapId: map_blank,
-								}
-						});
+						cre_upd_users(data.playerChats.senderId,context.player.name);
 					}
 					else {
-						game.engine.sendAction({
-							$case: "chat",
-								chat: { 
-									chatRecipient: data.playerChats.senderId,
-									contents: 'You have been our guild member!',
-									localPlayerIds: [],
-									mapId: map_blank,
-								}
-						});
+						player_chat(data.playerChats.senderId,'You have been our guild member!',map_blank);
 					}
 					break;
 				case "/info":
 					if (game.players[data.playerChats.senderId]['affiliation'] != ''){
 						var p_info_request = game.players[data.playerChats.senderId]['description'];
 						p_info_request = JSON.parse(p_info_request);
-						game.engine.sendAction({
-							$case: "chat",
-								chat: { 
-									chatRecipient: data.playerChats.senderId,
-									contents: `ID: ${data.playerChats.senderId}
-									HP: ${p_info_request['HP']}
-									MANA: ${p_info_request['MANA']}
-									L$: ${p_info_request['L$']}`,
-									localPlayerIds: [],
-									mapId: map_blank,
-								}
-						});
+						player_chat(
+							data.playerChats.senderId,
+							`GatherTown ID: ${data.playerChats.senderId}
+							HP: ${p_info_request['HP']}
+							MANA: ${p_info_request['MANA']}
+							L$: ${p_info_request['L$']}`,
+							map_blank
+						);
 					}
 					else {
-						game.engine.sendAction({
-							$case: "chat",
-								chat: { 
-									chatRecipient: data.playerChats.senderId,
-									contents: `Please register ❗`,
-									localPlayerIds: [],
-									mapId: map_blank,
-								}
-						});
+						player_chat(data.playerChats.senderId,'Please register ❗',map_blank);
 					}
 					break;
+				case "/getlist":
+					get_list_request(data.playerChats.senderId);
+					break;
+				case `/@${case_message_player_chat_id}`:
+					send_chat_request(case_message_player_chat_id,data.playerChats.senderId,message.contents);
+					break;
 				case "/market":
-					game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: data.playerChats.senderId,
-								contents: `Welcome to our guild market place!
-								To receive buff press x
-								1. Speed-buff: cost 20 L$.
-								2. Teleport to gate: cost 50 L$.`,
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-					});
+					player_chat(
+						data.playerChats.senderId,
+						`Welcome to our guild market place!
+						To receive buff press x
+						1. Speed-buff: cost 20 L$.
+						2. Teleport to gate: cost 50 L$.`,
+						map_blank
+					);
 					break;
 				case "/leave":
 					game.setAffiliation('',data.playerChats.senderId);
 					game.setDescription('',data.playerChats.senderId);
-					game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: data.playerChats.senderId,
-								contents: `You are not guild member for now
-								1. Your HP MANA and L$ will reset to default.
-								2. you will lose all progress and items.`,
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-					});
+					player_chat(
+						data.playerChats.senderId,
+						`You are not guild member for now
+						1. Your HP MANA and L$ will reset to default.
+						2. you will lose all progress and items.`,
+						map_blank
+					);
 					game.teleport(map_blank,50,72,data.playerChats.senderId);
 					break;
 				case "/start":
@@ -229,17 +339,13 @@ game.subscribeToEvent("playerChats", (data, context) => {
 								killer_id = [];
 								game.setSpeedModifier(1,data.playerChats.senderId);
 								game.teleport(map_dbg,50,50,data.playerChats.senderId);
-								game.engine.sendAction({
-									$case: "chat",
-										chat: { 
-											chatRecipient: data.playerChats.senderId,
-											contents: `The game can't start due to 
-											no survivor. Please wait for another
-											or can leave by respawn.`,
-											localPlayerIds: [],
-											mapId: map_dbg,
-										}
-								});
+								player_chat(
+									data.playerChats.senderId,
+									`The game can't start due to 
+									no survivor. Please wait for another
+									or can leave by respawn.`,
+									map_dbg
+								);
 							}
 							else{
 								is_event_start = true;
@@ -251,15 +357,7 @@ game.subscribeToEvent("playerChats", (data, context) => {
 						}
 					}
 					else {
-						game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: data.playerChats.senderId,
-								contents: `Event has been started.`,
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-						});
+						player_chat(data.playerChats.senderId,'Event has been started.',map_blank);
 					}
 					break;
 				case "/stop":
@@ -281,26 +379,15 @@ game.subscribeToEvent("playerChats", (data, context) => {
 					}
 					is_event_start = false;
 					break;
-				case "/check-in":
-					send_line_notify(`User ${game.players[data.playerChats.senderId]['name']} check-in at ${Date()}`);
-					break;
 				default:
-					game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: data.playerChats.senderId,
-								contents: 'What do you mean?',
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-					});
+					player_chat(data.playerChats.senderId,'What do you mean?',map_blank);
 			}
 		}
 	}
 });
 
 game.subscribeToEvent("playerInteracts", (data, context) => {
-	var obj = game.partialMaps.blank.objects;
+	var obj = game.partialMaps[map_blank]['objects'];
 	var obj_key = Object.keys(obj);
 	for (var i = 0; i<obj_key.length;i++){
 		if(data.playerInteracts.objId == obj[obj_key[i]].id){
@@ -309,28 +396,16 @@ game.subscribeToEvent("playerInteracts", (data, context) => {
 					var p_info_speed = game.players[context.playerId]['description'];
 					p_info_speed = JSON.parse(p_info_speed);
 					if (p_info_speed['L$'] < 20){
-						game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: context.playerId,
-								contents: `You need more ${20-p_info_speed['L$']} L$ to purchase this buff.`,
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-						});
+						player_chat(
+							context.playerId,
+							`You need more ${20-p_info_speed['L$']} L$ to purchase this buff.`,
+							map_blank
+						);
 					}
 					else {
 						p_info_speed['L$'] -= 20;
 						game.setDescription(JSON.stringify(p_info_speed),context.playerId);
-						game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: context.playerId,
-								contents: `Your remaining balance is ${p_info_speed['L$']} L$.`,
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-						});
+						player_chat(context.playerId,`Your remaining balance is ${p_info_speed['L$']} L$.`,map_blank);
 						game.setSpeedModifier(3,context.playerId);
 						setTimeout(()=>{
 							game.setSpeedModifier(1,context.playerId);
@@ -341,28 +416,12 @@ game.subscribeToEvent("playerInteracts", (data, context) => {
 					var p_info_tele = game.players[context.playerId]['description'];
 					p_info_tele = JSON.parse(p_info_tele);
 					if (p_info_tele['L$'] < 50){
-						game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: context.playerId,
-								contents: `You need more ${50-p_info_tele['L$']} L$ to purchase this buff.`,
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-						});
+						player_chat(context.playerId,`You need more ${50-p_info_tele['L$']} L$ to purchase this buff.`,map_blank);
 					}
 					else {
 						p_info_tele['L$'] -= 50;
 						game.setDescription(JSON.stringify(p_info_tele),context.playerId);
-						game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: context.playerId,
-								contents: `Your remaining balance is ${p_info_tele['L$']} L$.`,
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-						});
+						player_chat(context.playerId,`Your remaining balance is ${p_info_tele['L$']} L$.`,map_blank);
 						game.teleport(map_blank,49,89,context.playerId);
 					}
 					
@@ -372,15 +431,7 @@ game.subscribeToEvent("playerInteracts", (data, context) => {
 						game.teleport(map_dbg,50,50,context.playerId);
 					}
 					else {
-						game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: context.playerId,
-								contents: `Event has been started.`,
-								localPlayerIds: [],
-								mapId: map_blank,
-							}
-						});
+						player_chat(context.playerId,'Event has been started.',map_blank);
 					}
 				}
 				else {
@@ -389,20 +440,10 @@ game.subscribeToEvent("playerInteracts", (data, context) => {
 			}
 		}
 	}
-	//console.log(game.partialMaps.blank.objects[String(data.playerInteracts.encId)]._tags);
-	/*if (data.playerInteracts.objId == 'guard-sm'){
-		game.engine.sendAction({
-			$case: "mapDeleteObjectById",
-				mapDeleteObjectById: { 
-					id: data.playerInteracts.objId,
-					mapId: map_blank,
-				}
-		});
-	}*/
 });
 
 setInterval(()=>{
-	if (Object.keys(game.partialMaps.blank.collisions['44']).includes('57') == false){
+	if (Object.keys(game.partialMaps[map_blank]['collisions']['44']).includes('57') == false){
 		/*add object door etc.*/
 		game.engine.sendAction({
 			$case: "mapAddObject",
@@ -413,9 +454,9 @@ setInterval(()=>{
 					_tags: [ 'guard-event', 'dbg-event' ],
 					normal: GatherEventGuardNormal,
 					highlighted: GatherEventGuardHighLight,
-					type: 0,
+					type: 5,
 					x: 57,
-					y: 44,
+					y: 43,
 					width: 1,
 					height: 1,
 					distThreshold : 1,
@@ -472,9 +513,9 @@ setInterval(()=>{
 						_tags: [ 'guard-event', 'dbg-event' ],
 						normal: GatherEventGuardNormal,
 						highlighted: GatherEventGuardHighLight,
-						type: 0,
+						type: 5,
 						x: 57,
-						y: 44,
+						y: 43,
 						width: 1,
 						height: 1,
 						distThreshold : 1,
@@ -485,7 +526,7 @@ setInterval(()=>{
 			});
 		},7000);
 	}
-},10000);
+},180000);
 
 /***************************************************************************/
 game.subscribeToEvent("playerTriggersItem", (data, context) => {
@@ -520,15 +561,7 @@ game.subscribeToEvent("playerTriggersItem", (data, context) => {
 							sur_info['HP'] = 0;
 							game.setDescription(JSON.stringify(sur_info),pid);
 							game.teleport(map_dbg,51,79,pid);
-							game.engine.sendAction({
-								$case: "chat",
-									chat: { 
-										chatRecipient: pid,
-										contents: `You are dead!!`,
-										localPlayerIds: [],
-										mapId: map_dbg,
-									}
-							});
+							player_chat(pid,'You are dead!!',map_dbg);
 							players_join.splice(pid,1);
 							if (players_join.length == 0){
 								killer_id = [];
@@ -545,32 +578,17 @@ game.subscribeToEvent("playerTriggersItem", (data, context) => {
 									if (game.players[all_pid_key_dead[i]]['map'] == map_dbg){
 										game.teleport(map_blank,56,44,all_pid_key_dead[i]);
 										game.setSpeedModifier(1,all_pid_key_dead[i]);
-										game.engine.sendAction({
-											$case: "chat",
-												chat: { 
-													chatRecipient: all_pid_key_dead[i],
-													contents: `ROUND ENDED THE KILLER WON THE MATCH.`,
-													localPlayerIds: [],
-													mapId: map_blank,
-												}
-										});
+										//player_chat(all_pid_key_dead[i],'ROUND ENDED THE KILLER WON THE MATCH.',map_blank);
 									}
 								}
+								player_chat('GLOBAL_CHAT','ROUND ENDED THE KILLER WON THE MATCH.',map_blank);
 								is_event_start = false;
 							}
 						}
 						else {
 							game.setDescription(JSON.stringify(sur_info),pid);
 							game.setSpeedModifier(3,pid);
-							game.engine.sendAction({
-								$case: "chat",
-									chat: { 
-										chatRecipient: pid,
-										contents: `Your remaining HP: ${sur_info['HP']}`,
-										localPlayerIds: [],
-										mapId: map_dbg,
-									}
-							});
+							player_chat(pid,`Your remaining HP: ${sur_info['HP']}`,map_dbg);
 							setTimeout(()=>{
 								game.setSpeedModifier(1,pid);
 							},3000);
@@ -592,37 +610,17 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 					if(gens[i][gens[i]['id']] > 100){
 						gens[i][gens[i]['id']] = 100;
 					}
-					game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: context.playerId,
-								contents: `Repairing progress: ${gens[i][gens[i]['id']]}%`,
-								localPlayerIds: [],
-								mapId: map_dbg,
-							}
-					});
+					player_chat(
+									context.playerId,
+									`Repairing progress: ${gens[i][gens[i]['id']]}%`,
+									map_dbg
+								);
 					if (gens[i][gens[i]['id']] >= 100){
-						game.engine.sendAction({
-							$case: "chat",
-								chat: { 
-									chatRecipient: context.playerId,
-									contents: `This key has already repaired`,
-									localPlayerIds: [],
-									mapId: map_dbg,
-								}
-						});
+						player_chat(context.playerId,'This key has already repaired',map_dbg);
 					}
 				}
 				else{
-					game.engine.sendAction({
-						$case: "chat",
-							chat: { 
-								chatRecipient: context.playerId,
-								contents: `This key has already repaired`,
-								localPlayerIds: [],
-								mapId: map_dbg,
-							}
-					});
+					player_chat(context.playerId,'This key has already repaired',map_dbg);
 				}
 				for (var w=0; w<gens.length; w++){
 					sur_win_con += gens[w][gens[w]['id']];
@@ -642,17 +640,14 @@ game.subscribeToEvent('playerInteracts', (data, context) => {
 						if (game.players[all_pid_key_win[j]]['map'] == map_dbg){
 							game.teleport(map_blank,56,44,all_pid_key_win[j]);
 							game.setSpeedModifier(1,all_pid_key_win[j]);
-							game.engine.sendAction({
-								$case: "chat",
-									chat: { 
-										chatRecipient: all_pid_key_win[j],
-										contents: `ROUND ENDED THE SURVIVORS WON THE MATCH.`,
-										localPlayerIds: [],
-										mapId: map_blank,
-									}
-							});
+							/* player_chat(
+								all_pid_key_win[j],
+								'ROUND ENDED THE SURVIVORS WON THE MATCH.',
+								map_blank
+							); */
 						}
 					}
+					player_chat('GLOBAL_CHAT','ROUND ENDED THE SURVIVORS WON THE MATCH.',map_blank);
 					is_event_start = false;
 					break;
 				}
