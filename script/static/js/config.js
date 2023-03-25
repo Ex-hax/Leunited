@@ -7,7 +7,7 @@ const map_dbg = 'RdrF5O3qyQ91gFAdofHTv';
 const gatherTown_token = 'CqJ8NIBnx3VZlDIQ';
 const gatherTown_botId = 'pdZnTdb7VShWtOz6F2xdVAJ4nOs2';
 // for test GET map data
-const test_api_blank = 'https://gather.town/api/getMap?spaceId=VJ01mwNnpyXsL76g\\Leunited&mapId=blank&apiKey=CqJ8NIBnx3VZlDIQ';
+const test_api_blank = 'https://gather.town/api/getMap?spaceId=VJ01mwNnpyXsL76g\\Leunited&mapId=AUNxBku-FXug6Z6tsk9Nv&apiKey=CqJ8NIBnx3VZlDIQ';
 //raw
 const gatherTownBackgroundImagePathNormalTheme = 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/map/main.png';
 const gatherTownBackgroundImagePathDarkTheme = 'https://raw.githubusercontent.com/Ex-hax/Leunited/master/map/main-dark.png';
